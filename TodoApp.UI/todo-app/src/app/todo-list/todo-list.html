@@ -1,0 +1,24 @@
+<div class="todo">
+  <h2 class="todo-header">My TODOs</h2>
+  <app-add-todo (added)="load()"></app-add-todo>
+
+  <div *ngIf="loading" style="color: red; font-weight: bold;">LOADING...</div>
+  
+  <div *ngIf="!loading && todos.length === 0" style="color: orange;">
+    No todo items. Add a new one!
+  </div>
+
+  <ul *ngIf="!loading && todos.length > 0">
+    <ul class="todo-list">
+        <li *ngFor="let t of todos; let i = index" class="todo-item" [ngClass]="'color-' + (i % 5)">
+            <div class="todo-content">
+            <p class="todo-title">{{ t.itemName }}</p>
+            <p class="todo-create-time">
+                Created time: {{ t.createdDateTime | date: 'd MMM y, h:mm a' }}
+            </p>
+            <button class="delete-btn" (click)="delete(t.id)">Delete</button>
+            </div>
+        </li>
+    </ul>
+  </ul>
+</div>
